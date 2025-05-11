@@ -18,8 +18,8 @@ function reload() {
 
 async function fetchNews(query) {
     try {
-        const proxyUrl = " https://cors-anywhere.herokuapp.com/corsdemo";
-        const res = await fetch(`${proxyUrl}${url}${query}&apiKey=${API_KEY}`);
+       // const proxyUrl = " https://cors-anywhere.herokuapp.com/corsdemo";
+          const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
         const data = await res.json();
 
         if (data.status !== "ok") {
