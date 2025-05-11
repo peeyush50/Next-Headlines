@@ -18,8 +18,8 @@ function reload() {
 
 async function fetchNews(query) {
     try {
-       // const proxyUrl = " https://cors-anywhere.herokuapp.com/corsdemo";
-          const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
+        const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+        const res = await fetch(`${proxyUrl}${url}${query}&apiKey=${API_KEY}`);
         const data = await res.json();
 
         if (data.status !== "ok") {
@@ -34,6 +34,7 @@ async function fetchNews(query) {
         alert("Something went wrong. Please check your connection or API.");
     }
 }
+
 
 
 function bindData(articles) {
