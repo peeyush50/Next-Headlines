@@ -7,14 +7,34 @@ function reload() {
     window.location.reload();
 }
 
-async function fetchNews(query) {
-    // const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
-    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-    const res = await fetch(`${proxyUrl}${url}${query}&apiKey=${API_KEY}`);
+// async function fetchNews(query) {
+//      const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
+//     // const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+//     // const res = await fetch(`${proxyUrl}${url}${query}&apiKey=${API_KEY}`);
 
-    const data = await res.json();
-    bindData(data.articles);
+//     const data = await res.json();
+//     bindData(data.articles);
+// }
+
+async function fetchNews(query) {
+    try {
+        const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+        const res = await fetch(`${proxyUrl}${url}${query}&apiKey=${API_KEY}`);
+        const data = await res.json();
+
+        if (data.status !== "ok") {
+            console.error("API error:", data);
+            alert("Failed to load news. Please try again later.");
+            return;
+        }
+
+        bindData(data.articles);
+    } catch (error) {
+        console.error("Fetch failed:", error);
+        alert("Something went wrong. Please check your connection or API.");
+    }
 }
+
 
 function bindData(articles) {
     const cardsContainer = document.getElementById("cards-container");
