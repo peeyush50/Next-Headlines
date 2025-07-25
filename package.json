@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "start": "node index.js",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
+
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -13,6 +15,5 @@
     "cors": "^2.8.5",
     "express": "^5.1.0"
   },
-  "devDependencies": {},
-  "description": ""
+  "description": "**Next-Headlines** is a web app that fetches the latest news headlines based on a query using the NewsAPI. It allows you to explore the news and stay updated on current events."
 }
