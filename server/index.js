@@ -4,26 +4,24 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(cors());
+app.use(express.static(path.join(__dirname, "../client"))); // serve frontend
 
 const API_KEY = "64b73b5f330948c599d643b7f013068f";
-const NEWS_API_URL = "https://newsapi.org/v2/everything";
-
-app.use(cors());
-app.use(express.static(path.join(__dirname, "../public")));
 
 app.get("/news", async (req, res) => {
-    const query = req.query.q || "India";
-
-    try {
-        const response = await axios.get(`${NEWS_API_URL}?q=${query}&apiKey=${API_KEY}`);
-        res.json(response.data);
-    } catch (err) {
-        console.error("Error fetching news:", err.message);
-        res.status(500).json({ error: "Failed to fetch news" });
-    }
+  const query = req.query.q || "India";
+  try {
+    const response = await axios.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=${API_KEY}`);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch news" });
+  }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/index.html"));
 });
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
